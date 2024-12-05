@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,18 +21,27 @@
             height: 100px;
             margin: 5px;
             cursor: pointer;
+            border: 1px solid #ddd;
+        }
+        .preview:focus {
+            outline: 3px solid #ffa500; /* Orange outline when focused */
         }
     </style>
 </head>
-<body>
-    <!-- Structure HTML -->
+<body onload="onPageLoad()">
+    <!-- Div pour afficher l'image -->
     <div id="image">Hover over an image below to display here</div>
-    <img src="image1.jpg" alt="Image 1" class="preview" onmouseover="upDate(this)" onmouseout="unDo()">
-    <img src="image2.jpg" alt="Image 2" class="preview" onmouseover="upDate(this)" onmouseout="unDo()">
-    <img src="image3.jpg" alt="Image 3" class="preview" onmouseover="upDate(this)" onmouseout="unDo()">
+
+    <!-- Images avec texte alternatif -->
+    <img src="https://via.placeholder.com/150/FF0000/FFFFFF?text=Image+1" alt="Image 1 - Red Square" class="preview" tabindex="0" onmouseover="upDate(this)" onmouseout="unDo()" onfocus="handleFocus(this)" onblur="handleBlur(this)">
+    <img src="https://via.placeholder.com/150/00FF00/FFFFFF?text=Image+2" alt="Image 2 - Green Square" class="preview" tabindex="1" onmouseover="upDate(this)" onmouseout="unDo()" onfocus="handleFocus(this)" onblur="handleBlur(this)">
+    <img src="https://via.placeholder.com/150/0000FF/FFFFFF?text=Image+3" alt="Image 3 - Blue Square" class="preview" tabindex="2" onmouseover="upDate(this)" onmouseout="unDo()" onfocus="handleFocus(this)" onblur="handleBlur(this)">
+    <img src="https://via.placeholder.com/150/FFFF00/FFFFFF?text=Image+4" alt="Image 4 - Yellow Square" class="preview" tabindex="3" onmouseover="upDate(this)" onmouseout="unDo()" onfocus="handleFocus(this)" onblur="handleBlur(this)">
+    <img src="https://via.placeholder.com/150/FF00FF/FFFFFF?text=Image+5" alt="Image 5 - Purple Square" class="preview" tabindex="4" onmouseover="upDate(this)" onmouseout="unDo()" onfocus="handleFocus(this)" onblur="handleBlur(this)">
+    <img src="https://via.placeholder.com/150/00FFFF/FFFFFF?text=Image+6" alt="Image 6 - Cyan Square" class="preview" tabindex="5" onmouseover="upDate(this)" onmouseout="unDo()" onfocus="handleFocus(this)" onblur="handleBlur(this)">
 
     <script>
-        // JavaScript intégré
+        // Fonction pour mettre à jour l'image principale et son texte lors du survol
         function upDate(previewPic) {
             console.log("upDate triggered for:", previewPic);
             let imageDiv = document.getElementById("image");
@@ -40,11 +49,34 @@
             imageDiv.innerHTML = previewPic.alt;
         }
 
+        // Fonction pour annuler la mise à jour de l'image principale et revenir au texte initial
         function unDo() {
             console.log("unDo triggered");
             let imageDiv = document.getElementById("image");
             imageDiv.style.backgroundImage = "none";
             imageDiv.innerHTML = "Hover over an image below to display here";
+        }
+
+        // Fonction pour gérer l'événement onfocus sur les images
+        function handleFocus(previewPic) {
+            console.log("Focused on:", previewPic.alt);
+            previewPic.style.border = "2px solid #ffa500"; // Changer la bordure lors du focus
+        }
+
+        // Fonction pour gérer l'événement onblur sur les images
+        function handleBlur(previewPic) {
+            console.log("Blurred on:", previewPic.alt);
+            previewPic.style.border = "1px solid #ddd"; // Réinitialiser la bordure
+        }
+
+        // Fonction qui se déclenche au chargement de la page
+        function onPageLoad() {
+            console.log("Page loaded successfully!");
+            // Ajout de tabindex sur toutes les images
+            let images = document.querySelectorAll(".preview");
+            for (let i = 0; i < images.length; i++) {
+                images[i].setAttribute("tabindex", i); // Assure l'ordre de tabulation
+            }
         }
     </script>
 </body>
